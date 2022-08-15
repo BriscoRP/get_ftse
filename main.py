@@ -4,7 +4,7 @@ import pandas as pd
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-"""run this script, will require user input, what FTSE indices are required? 100, 250 or 350, will create & save csv """
+"""run this script, will require user input, what FTSE indices are required? 100, 250 or 350, will create & save csv"""
 
 
 # Correct version of chromedriver must be installed, update path below with your location of chromedriver #
@@ -37,10 +37,10 @@ def update_ftse_100_csv(index: int):
         tables_dfs = pd.read_html(str(tables))
         ftse_df = tables_dfs[0]
         ftse_df.to_csv(f'ftse_{x}.csv', index=False)
-        print('csv file updated!')
+        print('Success - csv file updated! (please wait)')
     except Exception as ex:
         print(ex)
-        print('could not create csv file')
+        print('Error - could not create csv file, error occurred, start program again')
 
     time.sleep(1)
     driver.quit()
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     try:
         indices = [100, 250, 350]
-        index_choice = int(input('Enter 100, 250 or 350: '))
+        index_choice = int(input('Enter what FTSE you want (100, 250 or 350): '))
         if index_choice in indices:
             update_ftse_100_csv(index_choice)
         else:
